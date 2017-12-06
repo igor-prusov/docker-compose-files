@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+        mx.local:
+                restart: always
+                image: gitlab/gitlab-ce:latest
+                ports:
+                        - "443:443"
+                        - "80:80"
+                        - "2222:22"
+                volumes:
+                        - /srv/gitlab/config:/etc/gitlab
+                        - /srv/gitlab/logs:/var/log/gitlab
+                        - /srv/gitlab/data:/var/opt/gitlab
+
+        gitlab-runner:
+                restart: always
+                image: igorprusov/gitlab-runner-texlive
+                volumes:
+                        - /srv/gitlab-runner/config:/etc/gitlab-runner
+                        - /var/run/docker.sock:/var/run/docker.sock
